@@ -36,15 +36,13 @@ export const StatsPanel = () => {
   );
 };
 
-// 1. Создаем интерфейс для пропсов
 interface StatCardProps {
   label: string;
   value: number | string;
   color: string;
-  isBlinking?: boolean; // ? означает, что поле необязательное
+  isBlinking?: boolean; 
 }
 
-// 2. Используем StatCardProps вместо any
 const StatCard = ({ label, value, color, isBlinking }: StatCardProps) => (
   <div
     style={{

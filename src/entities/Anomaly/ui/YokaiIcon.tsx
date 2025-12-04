@@ -10,10 +10,10 @@ const icons: Record<string, string> = {
 };
 
 const colors: Record<string, string> = {
-  Kitsune: "#f97316", // Orange
-  Tengu: "#ef4444", // Red
-  Kappa: "#22c55e", // Green
-  Oni: "#a855f7", // Purple
+  Kitsune: "#f97316", 
+  Tengu: "#ef4444", 
+  Kappa: "#22c55e", 
+  Oni: "#a855f7", 
 };
 
 export const YokaiIcon = ({ name }: { name: string }) => {

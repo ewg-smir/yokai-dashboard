@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./AnomalyCard.module.scss";
 import { Anomaly } from "../model/schema";
 import clsx from "clsx";
-import { YokaiIcon } from "./YokaiIcon"; // <--- Импорт иконки
+import { YokaiIcon } from "./YokaiIcon"; 
 
 interface Props {
   anomaly: Anomaly;
@@ -18,7 +18,6 @@ export const AnomalyCard: React.FC<Props> = ({ anomaly, actionSlot }) => {
         anomaly.status === "CAPTURED" && styles.captured
       )}
     >
-      {/* Декоративные уголки */}
       <div className={styles.corner_tl}></div>
       <div className={styles.corner_br}></div>
 

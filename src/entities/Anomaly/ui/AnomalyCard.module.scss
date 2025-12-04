@@ -10,7 +10,6 @@
   backdrop-filter: blur(5px);
   overflow: hidden;
 
-  /* Цветная полоска слева в зависимости от угрозы */
   border-left: 4px solid #555;
 
   &.LOW {
@@ -34,7 +33,6 @@
   }
 }
 
-/* Декоративные уголки (Cyberpunk style) */
 .corner_tl,
 .corner_br {
   position: absolute;
@@ -149,7 +147,6 @@
 }
 
 .CRITICAL {
-  /* Добавляем анимацию тряски */
   animation: glitch-skew 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
 }
 

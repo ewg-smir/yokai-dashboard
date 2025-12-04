@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Orbitron, JetBrains_Mono } from "next/font/google"; // <--- Новые шрифты
+import { Orbitron, JetBrains_Mono } from "next/font/google"; 
 import Providers from "./provider";
 import "./globals.css";
 

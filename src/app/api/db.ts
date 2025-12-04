@@ -9,7 +9,6 @@ export interface Anomaly {
   status: AnomalyStatus;
 }
 
-// Начальные данные
 let anomalies: Anomaly[] = [
   {
     id: "1",
@@ -48,20 +47,15 @@ export const db = {
     return anomalies.find((a) => a.id === id);
   },
   randomUpdate: () => {
-    // 1. Фильтруем: берем ТОЛЬКО активных духов
     const activeAnomalies = anomalies.filter((a) => a.status === "ACTIVE");
 
-    // Если активных нет, ничего не делаем
     if (activeAnomalies.length === 0) return null;
 
-    // 2. Выбираем случайного из АКТИВНЫХ
     const randomIdx = Math.floor(Math.random() * activeAnomalies.length);
     const targetId = activeAnomalies[randomIdx].id;
 
-    // 3. Находим его реальный индекс в общем массиве
     const mainIndex = anomalies.findIndex((a) => a.id === targetId);
 
-    // 4. Меняем уровень угрозы
     const levels: ThreatLevel[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
     const newLevel = levels[Math.floor(Math.random() * levels.length)];
 

@@ -21,15 +21,10 @@ export const AnomalyList = () => {
         if (!old) return old;
 
         return old.map((localAnomaly) => {
-          // Если ID совпадает с пришедшим событием
           if (localAnomaly.id === updatedAnomaly.id) {
-            // 🔥 ЗАЩИТА: Если локально он уже CAPTURED, игнорируем обновление с сервера
-            // Это предотвращает "сброс" статуса во время полета запроса
             if (localAnomaly.status === "CAPTURED") {
               return localAnomaly;
             }
-
-            // Иначе обновляем (меняем уровень угрозы)
             return updatedAnomaly;
           }
           return localAnomaly;
@@ -40,24 +35,21 @@ export const AnomalyList = () => {
     return () => eventSource.close();
   }, [queryClient]);
 
-  // 1. Fetching
   const { data: anomalies, isLoading } = useQuery({
     queryKey: ["anomalies"],
     queryFn: async () => {
       const res = await fetch("/api/anomalies");
       const data = await res.json();
-      return ListSchema.parse(data); // Валидация входящих данных
+      return ListSchema.parse(data); 
     },
   });
 
-  // 2. SSE Subscription (Real-time update)
   useEffect(() => {
     const eventSource = new EventSource("/api/stream");
 
     eventSource.onmessage = (event) => {
       const updatedAnomaly: Anomaly = JSON.parse(event.data);
 
-      // Обновляем кэш без перезапроса всего списка
       queryClient.setQueryData<Anomaly[]>(["anomalies"], (old) => {
         if (!old) return old;
         return old.map((a) =>
@@ -78,7 +70,6 @@ export const AnomalyList = () => {
         <AnomalyCard
           key={anomaly.id}
           anomaly={anomaly}
-          // Внедряем фичу в слот сущности
           actionSlot={
             <CaptureButton
               id={anomaly.id}

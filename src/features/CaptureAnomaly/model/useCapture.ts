@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Anomaly } from "@/entities/Anomaly";
 
-// Тип аргументов для мутации
 type MutationArgs = {
   id: string;
   status: "ACTIVE" | "CAPTURED";
@@ -11,7 +10,6 @@ export const useCapture = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    // Передаем объект с ID и новым статусом
     mutationFn: async ({ id, status }: MutationArgs) => {
       const res = await fetch("/api/capture", {
         method: "POST",
@@ -21,12 +19,10 @@ export const useCapture = () => {
       return res.json();
     },
 
-    // Оптимистичное обновление
     onMutate: async ({ id, status }) => {
       await queryClient.cancelQueries({ queryKey: ["anomalies"] });
       const previousData = queryClient.getQueryData<Anomaly[]>(["anomalies"]);
 
-      // Мгновенно ставим тот статус, который запросили (ACTIVE или CAPTURED)
       queryClient.setQueryData<Anomaly[]>(["anomalies"], (old) =>
         old?.map((a) => (a.id === id ? { ...a, status: status } : a))
       );

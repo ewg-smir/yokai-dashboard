@@ -5,7 +5,6 @@ export async function GET() {
 
   const stream = new ReadableStream({
     start(controller) {
-      // Отправляем событие каждые 5 секунд
       const interval = setInterval(() => {
         const updated = db.randomUpdate();
         if (updated) {
